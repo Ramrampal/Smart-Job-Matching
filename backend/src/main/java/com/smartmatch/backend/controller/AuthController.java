@@ -38,10 +38,8 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest request) {
 
-        LoginResponse response = userService.login(
-                request.getEmail(),
-                request.getPassword()
-        );
+        LoginResponse response =
+                userService.login(request.getEmail(), request.getPassword());
 
         return ResponseEntity.ok(response);
     }

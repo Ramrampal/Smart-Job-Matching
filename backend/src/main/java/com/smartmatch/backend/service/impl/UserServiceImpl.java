@@ -5,6 +5,7 @@ import com.smartmatch.backend.entity.User;
 import com.smartmatch.backend.exception.EmailAlreadyExistsException;
 import com.smartmatch.backend.repository.UserRepository;
 import com.smartmatch.backend.service.UserService;
+import com.smartmatch.backend.util.JwtUtil;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -16,11 +17,14 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final JwtUtil jwtUtil;
 
     public UserServiceImpl(UserRepository userRepository,
-                           PasswordEncoder passwordEncoder) {
+                           PasswordEncoder passwordEncoder,
+                           JwtUtil jwtUtil) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.jwtUtil = jwtUtil;
     }
 
     @Override
@@ -51,15 +55,21 @@ public class UserServiceImpl implements UserService {
         Optional<User> optionalUser = userRepository.findByEmail(email);
 
         if (optionalUser.isEmpty()) {
-            return new LoginResponse("Email not found", false);
+            return new LoginResponse("Email not found", false, null);
         }
 
         User user = optionalUser.get();
 
         if (!passwordEncoder.matches(password, user.getPassword())) {
-            return new LoginResponse("Invalid password", false);
+            return new LoginResponse("Invalid password", false, null);
         }
 
-        return new LoginResponse("Login Successful", true);
+        String token = jwtUtil.generateToken(user.getEmail());
+
+        return new LoginResponse(
+                "Login Successful",
+                true,
+                token
+        );
     }
 }

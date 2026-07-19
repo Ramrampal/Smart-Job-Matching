@@ -1,0 +1,156 @@
+/* Home Container */
+.home {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    min-height: 100vh;
+    background-color: #f8fafc;
+}
+
+/* Hero Section */
+.hero-section {
+    background-color: #ffffff;
+    padding: 60px 40px;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    margin-bottom: 40px;
+}
+
+.hero-section h1 {
+    font-size: 42px;
+    color: #1e3a8a;
+    margin-bottom: 15px;
+}
+
+.hero-section p {
+    font-size: 18px;
+    color: #6b7280;
+    margin-bottom: 35px;
+}
+
+/* Search Box */
+.search-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.search-box input {
+    width: 300px;
+    padding: 12px 15px;
+    font-size: 16px;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    outline: none;
+    transition: 0.3s;
+}
+
+.search-box input:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 6px rgba(37, 99, 235, 0.25);
+}
+
+.search-box button {
+    padding: 12px 24px;
+    background-color: #2563eb;
+    color: #ffffff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: 0.3s;
+}
+
+.search-box button:hover {
+    background-color: #1d4ed8;
+}
+
+/* Jobs Section */
+.jobs-section {
+    margin-top: 30px;
+}
+
+.jobs-section h2 {
+    font-size: 30px;
+    color: #1f2937;
+    margin-bottom: 25px;
+}
+
+/* Job List */
+.job-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Loading / Empty Message */
+.jobs-section p {
+    text-align: center;
+    color: #6b7280;
+    font-size: 18px;
+    padding: 30px;
+}
+
+/* Responsive Design */
+@media (max-width: 992px) {
+
+    .hero-section {
+        padding: 40px 25px;
+    }
+
+    .hero-section h1 {
+        font-size: 34px;
+    }
+
+    .hero-section p {
+        font-size: 16px;
+    }
+
+    .search-box {
+        flex-direction: column;
+    }
+
+    .search-box input,
+    .search-box button {
+        width: 100%;
+        max-width: 500px;
+    }
+}
+
+@media (max-width: 768px) {
+
+    .home {
+        padding: 20px;
+    }
+
+    .hero-section {
+        padding: 30px 20px;
+    }
+
+    .hero-section h1 {
+        font-size: 28px;
+    }
+
+    .jobs-section h2 {
+        font-size: 24px;
+    }
+}
+
+@media (max-width: 480px) {
+
+    .hero-section h1 {
+        font-size: 24px;
+    }
+
+    .hero-section p {
+        font-size: 15px;
+    }
+
+    .search-box input,
+    .search-box button {
+        font-size: 14px;
+    }
+}
