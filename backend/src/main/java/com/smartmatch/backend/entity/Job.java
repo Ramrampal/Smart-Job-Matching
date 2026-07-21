@@ -1,45 +1,40 @@
 package com.smartmatch.backend.entity;
 
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import jakarta.persistence.*;
 
 @Entity
 @Table(name = "jobs")
+@JsonPropertyOrder({
+        "id",
+        "title",
+        "company",
+        "location",
+        "salary",
+        "description",
+        "jobType"
+})
 public class Job {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
     private String title;
 
-    @Column(nullable = false)
     private String company;
 
-    @Column(nullable = false)
     private String location;
 
-    @Column(nullable = false)
     private String salary;
 
-    @Column(nullable = false, length = 2000)
+    @Column(length = 2000)
     private String description;
 
-    // Default Constructor
+    private String jobType;
+
     public Job() {
     }
-
-    // Parameterized Constructor
-    public Job(Long id, String title, String company, String location, String salary, String description) {
-        this.id = id;
-        this.title = title;
-        this.company = company;
-        this.location = location;
-        this.salary = salary;
-        this.description = description;
-    }
-
-    // Getters and Setters
 
     public Long getId() {
         return id;
@@ -89,15 +84,11 @@ public class Job {
         this.description = description;
     }
 
-    @Override
-    public String toString() {
-        return "Job{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", company='" + company + '\'' +
-                ", location='" + location + '\'' +
-                ", salary='" + salary + '\'' +
-                ", description='" + description + '\'' +
-                '}';
+    public String getJobType() {
+        return jobType;
+    }
+
+    public void setJobType(String jobType) {
+        this.jobType = jobType;
     }
 }

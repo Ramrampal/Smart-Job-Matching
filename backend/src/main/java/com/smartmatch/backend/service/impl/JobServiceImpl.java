@@ -16,6 +16,11 @@ public class JobServiceImpl implements JobService {
     private JobRepository jobRepository;
 
     @Override
+    public Job createJob(Job job) {
+        return jobRepository.save(job);
+    }
+
+    @Override
     public List<Job> getAllJobs() {
         return jobRepository.findAll();
     }
@@ -23,11 +28,6 @@ public class JobServiceImpl implements JobService {
     @Override
     public Optional<Job> getJobById(Long id) {
         return jobRepository.findById(id);
-    }
-
-    @Override
-    public Job saveJob(Job job) {
-        return jobRepository.save(job);
     }
 
     @Override
@@ -41,6 +41,7 @@ public class JobServiceImpl implements JobService {
         existingJob.setLocation(job.getLocation());
         existingJob.setSalary(job.getSalary());
         existingJob.setDescription(job.getDescription());
+        existingJob.setJobType(job.getJobType());
 
         return jobRepository.save(existingJob);
     }
@@ -48,5 +49,20 @@ public class JobServiceImpl implements JobService {
     @Override
     public void deleteJob(Long id) {
         jobRepository.deleteById(id);
+    }
+
+    @Override
+    public List<Job> searchByTitle(String keyword) {
+        return jobRepository.findByTitleContainingIgnoreCase(keyword);
+    }
+
+    @Override
+    public List<Job> searchByCompany(String keyword) {
+        return jobRepository.findByCompanyContainingIgnoreCase(keyword);
+    }
+
+    @Override
+    public List<Job> searchByLocation(String keyword) {
+        return jobRepository.findByLocationContainingIgnoreCase(keyword);
     }
 }
