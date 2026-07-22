@@ -55,13 +55,25 @@ public class UserServiceImpl implements UserService {
         Optional<User> optionalUser = userRepository.findByEmail(email);
 
         if (optionalUser.isEmpty()) {
-            return new LoginResponse("Email not found", false, null);
+            return new LoginResponse(
+                    "Email not found",
+                    false,
+                    null,
+                    null,
+                    null
+            );
         }
 
         User user = optionalUser.get();
 
         if (!passwordEncoder.matches(password, user.getPassword())) {
-            return new LoginResponse("Invalid password", false, null);
+            return new LoginResponse(
+                    "Invalid password",
+                    false,
+                    null,
+                    null,
+                    null
+            );
         }
 
         String token = jwtUtil.generateToken(user.getEmail());
@@ -69,7 +81,9 @@ public class UserServiceImpl implements UserService {
         return new LoginResponse(
                 "Login Successful",
                 true,
-                token
+                token,
+                user.getId(),
+                user.getRole()
         );
     }
 }

@@ -5,13 +5,21 @@ import com.smartmatch.backend.dto.LoginResponse;
 import com.smartmatch.backend.dto.RegisterRequest;
 import com.smartmatch.backend.entity.User;
 import com.smartmatch.backend.service.UserService;
+
 import jakarta.validation.Valid;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/auth")
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(
+        origins = {
+                "http://localhost:5173",
+                "http://localhost:5174"
+        },
+        allowCredentials = "true"
+)
 public class AuthController {
 
     private final UserService userService;
@@ -21,7 +29,8 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<String> registerUser(@Valid @RequestBody RegisterRequest request) {
+    public ResponseEntity<String> registerUser(
+            @Valid @RequestBody RegisterRequest request) {
 
         User user = new User();
 
@@ -36,10 +45,13 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest request) {
+    public ResponseEntity<LoginResponse> login(
+            @RequestBody LoginRequest request) {
 
         LoginResponse response =
-                userService.login(request.getEmail(), request.getPassword());
+                userService.login(
+                        request.getEmail(),
+                        request.getPassword());
 
         return ResponseEntity.ok(response);
     }
