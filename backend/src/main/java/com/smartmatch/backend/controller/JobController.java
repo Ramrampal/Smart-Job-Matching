@@ -7,7 +7,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/jobs")
@@ -28,8 +27,11 @@ public class JobController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Optional<Job>> getJobById(@PathVariable Long id) {
-        return ResponseEntity.ok(jobService.getJobById(id));
+    public ResponseEntity<Job> getJobById(@PathVariable Long id) {
+
+        return jobService.getJobById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 
     @PutMapping("/{id}")

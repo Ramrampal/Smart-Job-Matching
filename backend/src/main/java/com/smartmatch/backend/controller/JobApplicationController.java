@@ -42,14 +42,25 @@ public class JobApplicationController {
         return ResponseEntity.ok(service.getMyApplications(email));
     }
 
+    // Get Applications By Job
+    @GetMapping("/job/{jobId}")
+    public ResponseEntity<List<JobApplication>> getApplicationsByJob(@PathVariable Long jobId) {
+        return ResponseEntity.ok(service.getApplicationsByJob(jobId));
+    }
+
+    // Get Applications By Status
+    @GetMapping("/status/{status}")
+    public ResponseEntity<List<JobApplication>> getApplicationsByStatus(@PathVariable String status) {
+        return ResponseEntity.ok(service.getApplicationsByStatus(status));
+    }
+
     // Get Application By ID
     @GetMapping("/{id}")
     public ResponseEntity<JobApplication> getApplication(@PathVariable Long id) {
 
-        JobApplication application = service.getApplicationById(id)
-                .orElseThrow(() -> new RuntimeException("Application not found"));
-
-        return ResponseEntity.ok(application);
+        return service.getApplicationById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 
     // Update Application

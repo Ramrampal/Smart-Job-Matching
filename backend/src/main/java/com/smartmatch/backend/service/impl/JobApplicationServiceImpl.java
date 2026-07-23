@@ -1,5 +1,6 @@
 package com.smartmatch.backend.service.impl;
 
+import com.smartmatch.backend.entity.Job;
 import com.smartmatch.backend.entity.JobApplication;
 import com.smartmatch.backend.repository.JobApplicationRepository;
 import com.smartmatch.backend.service.JobApplicationService;
@@ -31,6 +32,18 @@ public class JobApplicationServiceImpl implements JobApplicationService {
     }
 
     @Override
+    public List<JobApplication> getApplicationsByJob(Long jobId) {
+        Job job = new Job();
+        job.setId(jobId);
+        return repository.findByJob(job);
+    }
+
+    @Override
+    public List<JobApplication> getApplicationsByStatus(String status) {
+        return repository.findByStatus(status);
+    }
+
+    @Override
     public Optional<JobApplication> getApplicationById(Long id) {
         return repository.findById(id);
     }
@@ -44,6 +57,8 @@ public class JobApplicationServiceImpl implements JobApplicationService {
         application.setUser(jobApplication.getUser());
         application.setJob(jobApplication.getJob());
         application.setResume(jobApplication.getResume());
+        application.setCoverLetter(jobApplication.getCoverLetter());
+        application.setAppliedDate(jobApplication.getAppliedDate());
         application.setStatus(jobApplication.getStatus());
 
         return repository.save(application);

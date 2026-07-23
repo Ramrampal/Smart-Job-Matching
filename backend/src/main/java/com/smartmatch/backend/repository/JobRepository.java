@@ -15,4 +15,8 @@ public interface JobRepository extends JpaRepository<Job, Long> {
 
     List<Job> findByLocationContainingIgnoreCase(String keyword);
 
+    // Employer Dashboard
+    List<Job> findByPostedBy(String postedBy);
+
+    List<Job> findByStatus(String status);
 }

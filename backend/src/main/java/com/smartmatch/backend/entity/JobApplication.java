@@ -2,6 +2,8 @@ package com.smartmatch.backend.entity;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
+
 @Entity
 @Table(name = "job_applications")
 public class JobApplication {
@@ -11,16 +13,22 @@ public class JobApplication {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
     @ManyToOne
-    @JoinColumn(name = "job_id")
+    @JoinColumn(name = "job_id", nullable = false)
     private Job job;
 
+    @Column(length = 500)
     private String resume;
 
+    @Column(length = 2000)
+    private String coverLetter;
+
     private String status;
+
+    private LocalDate appliedDate;
 
     public JobApplication() {
     }
@@ -57,11 +65,27 @@ public class JobApplication {
         this.resume = resume;
     }
 
+    public String getCoverLetter() {
+        return coverLetter;
+    }
+
+    public void setCoverLetter(String coverLetter) {
+        this.coverLetter = coverLetter;
+    }
+
     public String getStatus() {
         return status;
     }
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public LocalDate getAppliedDate() {
+        return appliedDate;
+    }
+
+    public void setAppliedDate(LocalDate appliedDate) {
+        this.appliedDate = appliedDate;
     }
 }

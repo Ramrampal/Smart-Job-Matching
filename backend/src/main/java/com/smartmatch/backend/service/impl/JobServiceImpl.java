@@ -34,7 +34,7 @@ public class JobServiceImpl implements JobService {
     public Job updateJob(Long id, Job job) {
 
         Job existingJob = jobRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Job not found"));
+                .orElseThrow(() -> new RuntimeException("Job not found with ID: " + id));
 
         existingJob.setTitle(job.getTitle());
         existingJob.setCompany(job.getCompany());
@@ -42,6 +42,12 @@ public class JobServiceImpl implements JobService {
         existingJob.setSalary(job.getSalary());
         existingJob.setDescription(job.getDescription());
         existingJob.setJobType(job.getJobType());
+
+        existingJob.setExperience(job.getExperience());
+        existingJob.setSkills(job.getSkills());
+        existingJob.setStatus(job.getStatus());
+        existingJob.setPostedBy(job.getPostedBy());
+        existingJob.setPostedDate(job.getPostedDate());
 
         return jobRepository.save(existingJob);
     }

@@ -12,7 +12,12 @@ import jakarta.persistence.*;
         "location",
         "salary",
         "description",
-        "jobType"
+        "jobType",
+        "experience",
+        "skills",
+        "status",
+        "postedBy",
+        "postedDate"
 })
 public class Job {
 
@@ -20,10 +25,13 @@ public class Job {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
     private String title;
 
+    @Column(nullable = false)
     private String company;
 
+    @Column(nullable = false)
     private String location;
 
     private String salary;
@@ -32,6 +40,17 @@ public class Job {
     private String description;
 
     private String jobType;
+
+    private String experience;
+
+    @Column(length = 1000)
+    private String skills;
+
+    private String status;
+
+    private String postedBy;
+
+    private String postedDate;
 
     public Job() {
     }
@@ -90,5 +109,45 @@ public class Job {
 
     public void setJobType(String jobType) {
         this.jobType = jobType;
+    }
+
+    public String getExperience() {
+        return experience;
+    }
+
+    public void setExperience(String experience) {
+        this.experience = experience;
+    }
+
+    public String getSkills() {
+        return skills;
+    }
+
+    public void setSkills(String skills) {
+        this.skills = skills;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getPostedBy() {
+        return postedBy;
+    }
+
+    public void setPostedBy(String postedBy) {
+        this.postedBy = postedBy;
+    }
+
+    public String getPostedDate() {
+        return postedDate;
+    }
+
+    public void setPostedDate(String postedDate) {
+        this.postedDate = postedDate;
     }
 }
