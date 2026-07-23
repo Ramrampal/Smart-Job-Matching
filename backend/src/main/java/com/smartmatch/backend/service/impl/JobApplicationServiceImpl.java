@@ -26,6 +26,11 @@ public class JobApplicationServiceImpl implements JobApplicationService {
     }
 
     @Override
+    public List<JobApplication> getMyApplications(String email) {
+        return repository.findByUserEmail(email);
+    }
+
+    @Override
     public Optional<JobApplication> getApplicationById(Long id) {
         return repository.findById(id);
     }
